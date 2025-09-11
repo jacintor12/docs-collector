@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Docs Collector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="alert alert-info alert-dismissible fade show mb-4" role="alert">
+                    <strong>Tip:</strong> Docs Collector automates the extraction of email attachments and uploads them to Smartsheet. <br>To enable extraction, the <strong>Matter ID</strong> must be included in the subject line of all emails sent and received. Without the Matter ID, extraction is not possible. <br>Configure your email server, set the check interval, and use the Email Actions page to manually trigger or synchronize email processing. The app is designed for a minimal, modern workflow with easy navigation and automatic 5-minute checks by default.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1 class="display-4 mb-4">Docs4Case</h1>
+                <p class="lead mb-4">Easily manage your email server configuration and document collection.</p>
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename='integration.png') }}" alt="Integration" class="img-fluid" style="max-width: 300px;">
+                </div>
+                <div class="d-grid gap-3 col-6 mx-auto">
+                    <a href="/email-actions" class="btn btn-info btn-lg">Email Actions</a>
+                    <a href="/reports" class="btn btn-warning btn-lg">Reports</a>
+                    <a href="/csv-uploader" class="btn btn-success btn-lg">Smartsheet Uploader</a>
+                    <a href="/config" class="btn btn-primary btn-lg">Email Server Configuration</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+    <!-- Modal for documents and upload -->
+    <div id="documents-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:2em;border-radius:8px;min-width:400px;max-width:90vw;max-height:90vh;overflow:auto;position:relative;">
+            <button onclick="closeDocumentsModal()" style="position:absolute;top:1em;right:1em;">&times;</button>
+            <h2>Documents for Case <span id="modal-case-number"></span></h2>
+            <div id="documents-list" style="margin-bottom:2em;"></div>
+            <div id="upload-area" style="border:2px dashed #aaa;padding:2em;text-align:center;cursor:pointer;">
+                <input type="file" id="upload-input" multiple style="display:none;">
+                <span id="upload-label">Drag & drop files here or click to upload</span>
+            </div>
+            <div id="upload-status" style="margin-top:1em;color:green;"></div>
+        </div>
+    </div>
+    </table>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

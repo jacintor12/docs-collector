@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        :root {
+            --pico-primary: #007bff;
+            --pico-primary-hover: #0069d9;
+            --pico-primary-focus: rgba(0, 123, 255, 0.25);
+        }
+        main { text-align: center; padding-top: 2rem; }
+        .success { color: var(--pico-color-green); }
+        .error { color: var(--pico-color-red); }
+        :root {
+          --bg: #fff;
+          --text: #222;
+        }
+        [data-theme="dark"] {
+          --bg: #222;
+          --text: #fff;
+        }
+        body {
+          background: var(--bg);
+          color: var(--text);
+          transition: background 0.2s, color 0.2s;
+        }
+        button.theme-toggle {
+          position: fixed;
+          top: 10px;
+          right: 10px;
+          z-index: 1000;
+          width: 2in;
+          height: 0.5in;
+          font-size: 0.9rem;
+          padding: 0.1em 0.2em;
+          line-height: 1.1;
+          white-space: normal;
+          max-width: 2in;
+          overflow: hidden;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <article>
+            <div style="background-color: #eaf4ff; border: 1px solid #b6d6f6; box-shadow: 0 2px 8px rgba(0,123,255,0.08); padding: 32px 0 24px 0; border-radius: 16px; margin-bottom: 32px;">
+                <h1 style="color: #111827; margin: 0 0 8px 0; font-size: 2.5em; font-weight: bold; text-align: center;">Update Result</h1>
+            </div>
+            <!-- Docketwise-Smartsheet Integration Image (removed if missing) -->
+            <!-- <img src="{{ url_for('static', filename='images/integration.png') }}" alt="Docketwise to Smartsheet" style="width:50%; height:auto; display:block; margin:auto;"> -->
+            {% if result.error %}
+                <p class="error"><strong>Error:</strong> {{ result.error }}</p>
+            {% elif result.message %}
+                <p class="success"><strong>Success!</strong> {{ result.message }}</p>
+            {% endif %}
+            <a href="/" role="button">Start Over</a>
+            <button onclick="window.history.back()" style="margin:10px 0;">Back</button>
+
+            {% if result.upload_id %}
+                <h2>Contact Sync Results</h2>
+                <div style="margin-bottom: 1em;">
+            {% if result.summary %}
+            <div style="font-weight:bold; margin:1em 0; font-size:1.2em;">
+              Added: {{ result.summary.inserted }}, Updated: {{ result.summary.updated }}, Skipped: {{ result.summary.skipped }} of {{ result.summary.total }} records.
+            </div>
+            {% else %}
+            <div style="font-weight:bold; margin:1em 0; font-size:1.2em;">Waiting for results...</div>
+            {% endif %}
+            {% endif %}
+        </article>
+    </main>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Light/Dark<br>Mode</button>
+    <script>
+    // Theme toggle logic
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }
+    function toggleTheme() {
+      const current = localStorage.getItem('theme') || 'light';
+      setTheme(current === 'light' ? 'dark' : 'light');
+    }
+    window.onload = function() {
+      const saved = localStorage.getItem('theme') || 'light';
+      setTheme(saved);
+    };
+    </script>
+</body>
+</html>

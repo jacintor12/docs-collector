@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-start mb-3">
+                <a href="/" class="back-btn">Back</a>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <h3 class="card-title mt-3">Smartsheet CSV Updater</h3>
+                        <p class="text-muted">Upload a file to add or update rows in your sheet.</p>
+                    </div>
+
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="alert alert-info">{{ messages[0] }}</div>
+                        {% endif %}
+                    {% endwith %}
+
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="access_token" class="form-label">Smartsheet Access Token</label>
+                            <input type="password" class="form-control" id="access_token" name="access_token" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sheet_id" class="form-label">Smartsheet URL or Sheet ID</label>
+                            <input type="text" class="form-control" id="sheet_id" name="sheet_id" placeholder="Paste full URL or just the ID" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Choose CSV file</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Upload and Map Columns</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

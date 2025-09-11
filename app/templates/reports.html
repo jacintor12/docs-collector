@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+    <a href="/" class="back-btn">Back</a>
+    <h2 class="mb-4">Failed Email Alerts</h2>
+    <div class="mb-3">
+        <form method="POST" action="/clear-all-alerts">
+            <button type="submit" class="btn btn-danger">Clear All Alerts</button>
+        </form>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>From</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alert in alerts %}
+            <tr>
+                <td>{{ alert.subject }}</td>
+                <td>{{ alert.from }}</td>
+                <td>{{ alert.date }}</td>
+                <td>
+                    <form method="POST" action="/clear-alert/{{ loop.index0 }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Clear</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not alerts %}
+        <div class="alert alert-info">No failed email alerts found.</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-start mb-3">
+                <a href="/" class="back-btn">Back</a>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-4 text-center">Email Server Configuration</h3>
+                    <form method="POST" action="/config">
+                        <div class="mb-3">
+                            <label for="imap_server" class="form-label">IMAP Server</label>
+                            <input type="text" class="form-control" id="imap_server" name="imap_server" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imap_port" class="form-label">IMAP Port</label>
+                            <input type="number" class="form-control" id="imap_port" name="imap_port" value="993" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email_user" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email_user" name="email_user" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email_pass" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="email_pass" name="email_pass" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="interval" class="form-label">Check Interval</label>
+                            <select class="form-select" id="interval" name="interval" required>
+                                <option value="5" selected>Every 5 minutes</option>
+                                <option value="15">Every 15 minutes</option>
+                                <option value="30">Every 30 minutes</option>
+                                <option value="60">Every hour</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="forward_to_email" class="form-label">Forward to Email (optional)</label>
+                            <input type="email" class="form-control" id="forward_to_email" name="forward_to_email" value="{{ forward_to_email or '' }}" placeholder="Leave blank to disable forwarding">
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Save Settings</button>
+                        </div>
+                    </form>
+                    {% if message %}
+                        <div class="alert alert-info mt-3">{{ message }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

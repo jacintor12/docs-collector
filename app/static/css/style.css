@@ -1,0 +1,21 @@
+.back-btn {
+	border-radius: 12px;
+	padding: 0.75em 1.5em;
+	font-size: 1.25em;
+	background-color: #6c757d;
+	color: #fff;
+	border: none;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	margin-bottom: 1em;
+	transition: background 0.2s;
+}
+.back-btn:hover {
+	background-color: #5a6268;
+	color: #fff;
+}
+body { font-family: Arial, sans-serif; margin: 2em; background: #f8f8f8; }
+h1 { color: #333; }
+div { background: #fff; padding: 1em; margin-bottom: 1em; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+hr { border: none; border-top: 1px solid #eee; }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vonage - Smartsheet Sync</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        label { display: block; margin-top: 1em; }
+        input { width: 300px; padding: 5px; }
+        .container { max-width: 600px; margin: auto; }
+        .section { border: 1px solid #ccc; padding: 20px; margin-top: 20px; border-radius: 5px; }
+        h2 { margin-top: 0; }
+        button, select { padding: 8px; margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vonage - Smartsheet Sync Controls</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li><b>{{ message }}</b></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <div class="section">
+            <h2>Credentials</h2>
+            <form action="{{ url_for('index') }}" method="post">
+                <label for="vonage_api_key">Vonage API Key:</label>
+                <input type="text" id="vonage_api_key" name="vonage_api_key" value="{{ creds.vonage_api_key or '' }}">
+
+                <label for="vonage_api_secret">Vonage API Secret:</label>
+                <input type="password" id="vonage_api_secret" name="vonage_api_secret" value="{{ creds.vonage_api_secret or '' }}">
+
+                <label for="vbc_username">VBC Username:</label>
+                <input type="text" id="vbc_username" name="vbc_username" value="{{ creds.vbc_username or '' }}">
+
+                <label for="vbc_password">VBC Password:</label>
+                <input type="password" id="vbc_password" name="vbc_password" value="{{ creds.vbc_password or '' }}">
+
+                <label for="vbc_account_id">VBC Account ID:</label>
+                <input type="text" id="vbc_account_id" name="vbc_account_id" value="{{ creds.vbc_account_id or '' }}">
+
+                <label for="smartsheet_token">Smartsheet Token:</label>
+                <input type="password" id="smartsheet_token" name="smartsheet_token" value="{{ creds.smartsheet_token or '' }}">
+
+                <label for="smartsheet_sheet_id">Smartsheet Sheet ID:</label>
+                <input type="text" id="smartsheet_sheet_id" name="smartsheet_sheet_id" value="{{ creds.smartsheet_sheet_id or '' }}">
+                
+                <br>
+                <button type="submit">Save Credentials</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Manual Sync & Scheduler</h2>
+            <form action="{{ url_for('sync') }}" method="post" style="display: inline-block;">
+                <button type="submit">Start Manual Sync</button>
+            </form>
+            <form action="{{ url_for('schedule') }}" method="post" style="display: inline-block;">
+                <label for="interval">Schedule:</label>
+                <select name="interval" id="interval">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                </select>
+                <button type="submit">Set Schedule</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
